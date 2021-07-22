@@ -277,6 +277,7 @@ mongoClient
       let category = request.query.category || request.body.category;
       let retail_price =
         request.query.retail_price || request.body.retail_price;
+      let url = request.body.url || request.body.url;
       // let { brand, volume, alcohol_percentage, category, retail_price } =
       //   request.body;
       if (_id === undefined) {
@@ -299,6 +300,9 @@ mongoClient
       }
       if (retail_price !== undefined) {
         queryParam["Retail_Price"] = retail_price;
+      }
+      if (url !== undefined) {
+        queryParam["URL"] = url;
       }
 
       productTable
