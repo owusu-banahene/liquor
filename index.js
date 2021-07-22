@@ -173,9 +173,13 @@ mongoClient
       if (_id !== undefined) {
         query["_id"] = parseInt(_id);
       }
-      let { brand, volume, alcohol_percentage, category, retail_price } =
-        request.body || request.query;
-
+      let brand = request.query.brand || request.body.brand;
+      let volume = request.query.volume || request.body.volume;
+      let alcohol_percentage =
+        request.query.alcohol_percentage || request.body.alcohol_percentage;
+      let category = request.query.category || request.body.category;
+      let retail_price =
+        request.query.retail_price || request.body.retail_price;
       if (brand !== undefined) {
         brand = brand[0].toUpperCase() + brand.slice(1).toLowerCase();
         query["Brand"] = brand;
@@ -188,7 +192,6 @@ mongoClient
         query["Alcohol_Percentage"] = alcohol_percentage;
       }
       if (category !== undefined) {
-        console.log(category);
         category = category[0].toUpperCase() + category.slice(1).toLowerCase();
         query["Category"] = category;
       }
@@ -267,8 +270,15 @@ mongoClient
       let queryParam = {};
       let keyPara = {};
       let _id = request.query._id || request.body._id;
-      let { brand, volume, alcohol_percentage, category, retail_price } =
-        request.body;
+      let brand = request.query.brand || request.body.brand;
+      let volume = request.query.volume || request.body.volume;
+      let alcohol_percentage =
+        request.query.alcohol_percentage || request.body.alcohol_percentage;
+      let category = request.query.category || request.body.category;
+      let retail_price =
+        request.query.retail_price || request.body.retail_price;
+      // let { brand, volume, alcohol_percentage, category, retail_price } =
+      //   request.body;
       if (_id === undefined) {
         return response.status(400).send("_id is required");
       }
@@ -383,7 +393,6 @@ mongoClient
     //delete item from the database
     //products
     server.delete("/products/delete", (request, response) => {
-
       let key = {};
       let _id = request.body._id || request.query._id;
       if (_id === undefined) {
@@ -404,14 +413,10 @@ mongoClient
           }
         })
         .catch((err) => response.send(err));
-
-     
-
     });
 
     //orders
     server.delete("/orders/delete", (request, response) => {
-
       let orderKey = {};
       let _id = request.body._id || request.query._id;
 
@@ -457,7 +462,6 @@ mongoClient
           }
         })
         .catch((err) => response.send(err));
-
     });
   })
   .catch((err) => console.error(err));
